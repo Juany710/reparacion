@@ -1,0 +1,38 @@
+package com.app.reparacion.models;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import com.app.reparacion.models.enums.EstadoTicket;
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "ticket_soporte")
+public class TicketSoporte {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idTicket;
+
+    private String descripcion;
+
+    @Enumerated(EnumType.STRING)
+    private EstadoTicket estado; // ABIERTO, EN_PROCESO, CERRADO
+
+    private LocalDateTime fechaCreacion;
+
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
+
+    @ManyToOne
+    @JoinColumn(name = "tecnico_id")
+    private Tecnico tecnico;
+
+    @OneToMany(mappedBy = "ticket")
+    private List<Chat> chats;
+
+    @OneToMany(mappedBy = "ticket")
+    private List<Calificacion> calificaciones;
+
+    // Getters y Setters
+}
