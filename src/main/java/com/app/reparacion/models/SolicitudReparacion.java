@@ -32,21 +32,45 @@ public class SolicitudReparacion {
     private Categoria categoria;
 
     // 🔹 Getters y Setters
-    public Integer getIdSolicitudReparacion() { return idSolicitudReparacion; }
-    public void setIdSolicitudReparacion(Integer idSolicitudReparacion) { this.idSolicitudReparacion = idSolicitudReparacion; }
+    public Integer getIdSolicitudReparacion() { 
+        return idSolicitudReparacion; 
+    }
+    public void setIdSolicitudReparacion(Integer idSolicitudReparacion) { 
+        this.idSolicitudReparacion = idSolicitudReparacion; 
+    }
 
-    public LocalDate getFechaSolicitud() { return fechaSolicitud; }
-    public void setFechaSolicitud(LocalDate fechaSolicitud) { this.fechaSolicitud = fechaSolicitud; }
+    public LocalDate getFechaSolicitud() { 
+        return fechaSolicitud; 
+    }
+    public void setFechaSolicitud(LocalDate fechaSolicitud) { 
+        this.fechaSolicitud = fechaSolicitud; 
+    }
 
-    public Boolean getEstadoSolicitud() { return estadoSolicitud; }
-    public void setEstadoSolicitud(Boolean estadoSolicitud) { this.estadoSolicitud = estadoSolicitud; }
+    public Boolean getEstadoSolicitud() { 
+        return estadoSolicitud; 
+    }
+    public void setEstadoSolicitud(Boolean estadoSolicitud) { 
+        this.estadoSolicitud = estadoSolicitud; }
 
-    public String getDetalleSolicitud() { return detalleSolicitud; }
-    public void setDetalleSolicitud(String detalleSolicitud) { this.detalleSolicitud = detalleSolicitud; }
 
-    public Cliente getCliente() { return cliente; }
-    public void setCliente(Cliente cliente) { this.cliente = cliente; }
+    public String getDetalleSolicitud() { 
+        return detalleSolicitud; 
+    }
+    public void setDetalleSolicitud(String detalleSolicitud) { 
+        this.detalleSolicitud = detalleSolicitud; 
+    }
 
-    public Categoria getCategoria() { return categoria; }
-    public void setCategoria(Categoria categoria) { this.categoria = categoria; }
+    public Cliente getCliente() { 
+        return cliente; 
+    }
+    public void setCliente(Cliente cliente) { 
+        this.cliente = cliente; 
+    }
+
+    public Categoria getCategoria() { 
+        return categoria; 
+    }
+    public void setCategoria(Categoria categoria) { 
+        this.categoria = categoria; 
+    }
 }

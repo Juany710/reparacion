@@ -7,6 +7,11 @@ import jakarta.persistence.*;
 @Table(name = "tecnico")
 public class Tecnico extends Usuario{
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idTecnico")
+    private Integer idTecnico;
+    
     @ManyToMany
     @JoinTable(
         name = "tecnico_has_categoria",
@@ -16,6 +21,10 @@ public class Tecnico extends Usuario{
     private List<Categoria> categorias;
 
     // 🔹 Getters y Setters
-    public List<Categoria> getCategorias() { return categorias; }
-    public void setCategorias(List<Categoria> categorias) { this.categorias = categorias; }
+    public List<Categoria> getCategorias() { 
+        return categorias; 
+    }
+    public void setCategorias(List<Categoria> categorias) { 
+        this.categorias = categorias; 
+    }
 }

@@ -33,4 +33,17 @@ public class Chat {
     private TicketSoporte ticket;
 
     // Getters y Setters
+    public String getMensaje() {
+        return mensaje;
+    }
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
+    }
+
+    public LocalDateTime getFechaEnvio() {
+        return fechaEnvio;
+    }
+    public void setFechaEnvio(LocalDateTime fechaEnvio) {
+        this.fechaEnvio = fechaEnvio;
+    }
 }

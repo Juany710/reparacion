@@ -35,4 +35,26 @@ public class TicketSoporte {
     private List<Calificacion> calificaciones;
 
     // Getters y Setters
+    
+    public String getDescripcion() {
+        return descripcion;
+    }
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public EstadoTicket getEstado() {
+        return estado;
+    }
+    public void setEstado(EstadoTicket estado) {
+        this.estado = estado;
+    }
+
+    public LocalDateTime getFechaCreacion() {
+        return fechaCreacion;
+    }
+    public void setFechaCreacion(LocalDateTime fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
+    }
+
 }

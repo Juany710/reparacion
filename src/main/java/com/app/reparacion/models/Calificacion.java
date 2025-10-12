@@ -13,6 +13,7 @@ public class Calificacion {
     private Integer puntaje; // 1 a 5
     private String comentario;
 
+
     @ManyToOne
     @JoinColumn(name = "autor_id")
     private Usuario autor;
@@ -30,4 +31,17 @@ public class Calificacion {
     private TicketSoporte ticket;
 
     // Getters y Setters
+        public Integer getPuntaje() {
+        return puntaje;
+    }
+    public void setPuntaje(Integer puntaje) {
+        this.puntaje = puntaje;
+    }
+
+    public String getComentario() {
+        return comentario;
+    }
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
+    }
 }

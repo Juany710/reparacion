@@ -11,6 +11,10 @@ public class Cliente extends Usuario{
     private List<SolicitudReparacion> solicitudes;
 
     // 🔹 Getters y Setters
-    public List<SolicitudReparacion> getSolicitudes() { return solicitudes; }
-    public void setSolicitudes(List<SolicitudReparacion> solicitudes) { this.solicitudes = solicitudes; }
+    public List<SolicitudReparacion> getSolicitudes() { 
+        return solicitudes; 
+    }
+    public void setSolicitudes(List<SolicitudReparacion> solicitudes) { 
+        this.solicitudes = solicitudes; 
+    }
 }

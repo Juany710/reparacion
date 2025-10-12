@@ -25,18 +25,38 @@ public abstract class Usuario {
     private String direccion;
 
     // 🔹 Getters y Setters
-    public Integer getIdUsuario() { return idUsuario; }
-    public void setIdUsuario(Integer idUsuario) { this.idUsuario = idUsuario; }
+    public Integer getIdUsuario() { 
+        return idUsuario; 
+    }
+    public void setIdUsuario(Integer idUsuario) { 
+        this.idUsuario = idUsuario; 
+    }
 
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
+    public String getNombre() { 
+        return nombre; 
+    }
+    public void setNombre(String nombre) { 
+        this.nombre = nombre; 
+    }
 
-    public String getApellido() { return apellido; }
-    public void setApellido(String apellido) { this.apellido = apellido; }
+    public String getApellido() { 
+        return apellido; 
+    }
+    public void setApellido(String apellido) { 
+        this.apellido = apellido; 
+    }
 
-    public Integer getDni() { return dni; }
-    public void setDni(Integer dni) { this.dni = dni; }
+    public Integer getDni() { 
+        return dni; 
+    }
+    public void setDni(Integer dni) { 
+        this.dni = dni; 
+    }
 
-    public String getDireccion() { return direccion; }
-    public void setDireccion(String direccion) { this.direccion = direccion; }
+    public String getDireccion() { 
+        return direccion; 
+    }
+    public void setDireccion(String direccion) { 
+        this.direccion = direccion; 
+    }
 }
