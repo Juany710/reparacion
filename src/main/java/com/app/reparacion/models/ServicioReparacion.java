@@ -25,7 +25,28 @@ public class ServicioReparacion {
     @OneToOne(mappedBy = "servicio", cascade = CascadeType.ALL)
     private Chat chat;
 
-    // Getters y Setters
+        // Getters y Setters
+    public EstadoServicio getEstado() {
+        return estado;
+    }
+    public void setEstado(EstadoServicio estado) {
+        this.estado = estado;
+    }
+    
+    public Oferta getOferta() {
+        return oferta;
+    }
+    public void setOferta(Oferta oferta) {
+        this.oferta = oferta;
+    }
+
+    public Chat getChat() {
+        return chat;
+    }
+    public void setChat(Chat chat) {
+        this.chat = chat;
+    }
+
     public LocalDate getFechaInicio() {
         return fechaInicio;
     }

@@ -2,6 +2,8 @@ package com.app.reparacion.models;
 
 import java.time.LocalDate;
 
+import com.app.reparacion.models.enums.Estado;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -17,7 +19,7 @@ public class SolicitudReparacion {
     private LocalDate fechaSolicitud;
 
     @Column(name = "Estado_Solicitud")
-    private Boolean estadoSolicitud;
+    private Estado estado;
 
     @Column(name = "Detalle_solicitud", length = 100)
     private String detalleSolicitud;
@@ -46,12 +48,12 @@ public class SolicitudReparacion {
         this.fechaSolicitud = fechaSolicitud; 
     }
 
-    public Boolean getEstadoSolicitud() { 
-        return estadoSolicitud; 
+    public Estado getEstado() { 
+        return estado; 
     }
-    public void setEstadoSolicitud(Boolean estadoSolicitud) { 
-        this.estadoSolicitud = estadoSolicitud; }
-
+    public void setEstado(Estado estado) { 
+        this.estado = estado; 
+    }
 
     public String getDetalleSolicitud() { 
         return detalleSolicitud; 

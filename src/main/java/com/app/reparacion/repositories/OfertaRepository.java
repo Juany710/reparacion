@@ -1,8 +1,26 @@
 package com.app.reparacion.repositories;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
 import com.app.reparacion.models.Oferta;
+
+import jakarta.transaction.Transactional;
 
 public interface OfertaRepository extends JpaRepository <Oferta, Integer>{
 
+    List<Oferta> findBySolicitudId(Integer isSolicitud);
+
+    // Rechaza todas las otras ofertas de la misma solicitud
+    @Modifying
+    @Transactional
+    @Query("UPDATE Oferta o SET o.estado = 'RECHAZADA' " +
+        "WHERE o.solicitud.idSolicitud = :idSolicitud " +
+        "AND o.idOferta <> :idOfertaAceptada")
+    void rechazarOtras(@Param("idSolicitud") Integer idSolicitud,
+                    @Param("idOfertaAceptada") Integer idOfertaAceptada);
 }

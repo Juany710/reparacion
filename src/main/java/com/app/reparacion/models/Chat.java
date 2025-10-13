@@ -1,6 +1,7 @@
 package com.app.reparacion.models;
 
 import java.time.LocalDateTime;
+import com.app.reparacion.models.enums.EstadoMensaje;
 import jakarta.persistence.*;
 
 @Entity
@@ -15,6 +16,10 @@ public class Chat {
     private String mensaje;
 
     private LocalDateTime fechaEnvio;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "estado_mensaje")
+    private EstadoMensaje estado = EstadoMensaje.PENDIENTE; // valor por defecto
 
     @ManyToOne
     @JoinColumn(name = "emisor_id")
@@ -45,5 +50,40 @@ public class Chat {
     }
     public void setFechaEnvio(LocalDateTime fechaEnvio) {
         this.fechaEnvio = fechaEnvio;
+    }
+
+        public EstadoMensaje getEstado() {
+        return estado;
+    }
+    public void setEstado(EstadoMensaje estado) {
+        this.estado = estado;
+    }
+
+    public Usuario getEmisor() {
+        return emisor;
+    }
+    public void setEmisor(Usuario emisor) {
+        this.emisor = emisor;
+    }
+
+    public Usuario getReceptor() {
+        return receptor;
+    }
+    public void setReceptor(Usuario receptor) {
+        this.receptor = receptor;
+    }
+
+    public ServicioReparacion getServicio() {
+        return servicio;
+    }
+    public void setServicio(ServicioReparacion servicio) {
+        this.servicio = servicio;
+    }
+
+    public TicketSoporte getTicket() {
+        return ticket;
+    }
+    public void setTicket(TicketSoporte ticket) {
+        this.ticket = ticket;
     }
 }

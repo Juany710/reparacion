@@ -4,5 +4,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.app.reparacion.models.Tecnico;
 
 public interface TecnicoRepository  extends JpaRepository<Tecnico, Integer>{
-
 }

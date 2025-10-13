@@ -1,7 +1,10 @@
 package com.app.reparacion.models;
 
 import java.time.LocalDate;
-import com.app.reparacion.models.enums.EstadoOferta;
+
+import com.app.reparacion.models.enums.Estado;
+import com.app.reparacion.models.enums.Modalidad;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -15,11 +18,12 @@ public class Oferta {
     private Double precio;
     private String garantia;
     private LocalDate fecha;
-    private String modalidad;
-
 
     @Enumerated(EnumType.STRING)
-    private EstadoOferta estado; // PENDIENTE, ACEPTADA, RECHAZADA
+    private Estado estado; // PENDIENTE, ACEPTADA, RECHAZADA
+
+    @Enumerated(EnumType.STRING)
+    private Modalidad modalidad; // Presencial, Taller
 
     // Relaciones
     @ManyToOne
@@ -27,10 +31,18 @@ public class Oferta {
     private Tecnico tecnico;
 
     @ManyToOne
-    @JoinColumn(name = "solicitud_id")
+    @JoinColumn(name = "solicitud_idSolicitud")
     private SolicitudReparacion solicitud;
 
     // Getters y Setters
+
+        public Integer getIdOferta() {
+        return idOferta;
+    }
+    public void setIdOferta(Integer idOferta) {
+        this.idOferta = idOferta;
+    }
+    
     public Double getPrecio() {
         return precio;
     }
@@ -45,6 +57,13 @@ public class Oferta {
         this.garantia = garantia;
     }
 
+    public Modalidad getModalidad() {
+        return modalidad;
+    }
+    public void setModalidad(Modalidad modalidad) {
+        this.modalidad = modalidad;
+    }
+
     public LocalDate getFecha() {
         return fecha;
     }
@@ -52,10 +71,24 @@ public class Oferta {
         this.fecha = fecha;
     }
 
-    public String getModalidad() {
-        return modalidad;
+    public Estado getEstado() {
+        return estado;
     }
-    public void setModalidad(String modalidad) {
-        this.modalidad = modalidad;
+    public void setEstado(Estado estado) {
+        this.estado = estado;
+    }
+
+        public Tecnico getTecnico() {
+        return tecnico;
+    }
+    public void setTecnico(Tecnico tecnico) {
+        this.tecnico = tecnico;
+    }
+
+    public SolicitudReparacion getSolicitud() {
+        return solicitud;
+    }
+    public void setSolicitud(SolicitudReparacion solicitud) {
+        this.solicitud = solicitud;
     }
 }
