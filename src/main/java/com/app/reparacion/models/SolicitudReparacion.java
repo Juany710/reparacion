@@ -1,10 +1,14 @@
 package com.app.reparacion.models;
 
 import java.time.LocalDate;
-
+import java.util.List;
 import com.app.reparacion.models.enums.Estado;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 
 @Entity
 @Table(name = "solicitud_reparacion")
@@ -15,23 +19,32 @@ public class SolicitudReparacion {
     @Column(name = "idSolicitud_reparacion")
     private Integer idSolicitudReparacion;
 
+    @PastOrPresent(message = "La fecha de solicitud no puede ser futura")
     @Column(name = "Fecha_solicitud")
     private LocalDate fechaSolicitud;
 
+    @NotNull(message = "El estado de la solicitud es obligatorio")
     @Column(name = "Estado_Solicitud")
     private Estado estado;
 
+    @NotBlank(message = "El detalle de la solicitud es obligatorio")
     @Column(name = "Detalle_solicitud", length = 100)
     private String detalleSolicitud;
 
     // 🔹 Relaciones
     @ManyToOne
     @JoinColumn(name = "cliente_usuario_idUsuario")
+    @NotNull(message = "Debe estar asociada a un cliente")
     private Cliente cliente;
 
     @ManyToOne
     @JoinColumn(name = "categoria_idCategoria")
+    @NotNull(message = "Debe seleccionar una categoría")
     private Categoria categoria;
+
+    @OneToMany(mappedBy = "solicitud")
+    @JsonIgnoreProperties("solicitud")
+    private List<Oferta> ofertas;
 
     // 🔹 Getters y Setters
     public Integer getIdSolicitudReparacion() { 

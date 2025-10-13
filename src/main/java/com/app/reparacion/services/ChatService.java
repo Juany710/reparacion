@@ -3,9 +3,12 @@ package com.app.reparacion.services;
 import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.stereotype.Service;
+
+import com.app.reparacion.dto.ChatMensajeDTO;
 import com.app.reparacion.models.Chat;
 import com.app.reparacion.models.enums.EstadoMensaje;
 import com.app.reparacion.repositories.ChatRepository;
+import jakarta.transaction.Transactional;
 
 
 @Service
@@ -18,6 +21,7 @@ public class ChatService {
     }
 
      /** Enviar un mensaje nuevo */
+    @Transactional
     public Chat enviarMensaje(Chat chat) {
         chat.setFechaEnvio(LocalDateTime.now());
         return chatRepo.save(chat);
@@ -55,4 +59,7 @@ public class ChatService {
         return chatRepo.findByTicketId(idTicket);
     }
 
+    public List<ChatMensajeDTO> obtenerMensajesPorServicio(Integer idServicio) {
+        return chatRepo.listarPorServicio(idServicio);
+    }
 }

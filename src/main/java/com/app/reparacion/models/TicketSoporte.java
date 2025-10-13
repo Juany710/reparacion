@@ -3,6 +3,8 @@ package com.app.reparacion.models;
 import java.time.LocalDateTime;
 import java.util.List;
 import com.app.reparacion.models.enums.EstadoTicket;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -29,9 +31,11 @@ public class TicketSoporte {
     private Tecnico tecnico;
 
     @OneToMany(mappedBy = "ticket")
+    @JsonIgnoreProperties("ticketSoporte")
     private List<Chat> chats;
 
     @OneToMany(mappedBy = "ticket")
+    @JsonIgnoreProperties("ticketSoporte")
     private List<Calificacion> calificaciones;
 
     // Getters y Setters

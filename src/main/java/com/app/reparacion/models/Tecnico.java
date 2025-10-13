@@ -1,6 +1,9 @@
 package com.app.reparacion.models;
 
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -18,6 +21,7 @@ public class Tecnico extends Usuario{
         joinColumns = @JoinColumn(name = "usuario_idUsuario"),
         inverseJoinColumns = @JoinColumn(name = "categoria_idCategoria")
     )
+    @JsonIgnoreProperties("tecnicos")
     private List<Categoria> categorias;
 
     // 🔹 Getters y Setters

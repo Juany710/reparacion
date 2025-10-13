@@ -2,9 +2,9 @@ package com.app.reparacion.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import com.app.reparacion.models.TicketSoporte;
+import com.app.reparacion.models.Usuario;
 
 @Repository
-public interface TicketSoporteRepository extends JpaRepository<TicketSoporte, Integer> {
+public interface UsuarioRepository  extends JpaRepository <Usuario, Integer>{
 
 }

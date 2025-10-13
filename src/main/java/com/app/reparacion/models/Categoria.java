@@ -1,6 +1,9 @@
 package com.app.reparacion.models;
 
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -22,6 +25,7 @@ public class Categoria {
     private List<SolicitudReparacion> solicitudes;
 
     @ManyToMany(mappedBy = "categorias")
+    @JsonIgnoreProperties("categorias")
     private List<Tecnico> tecnicos;
 
     // Getters y Setters

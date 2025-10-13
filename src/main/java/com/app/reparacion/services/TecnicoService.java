@@ -10,6 +10,7 @@ import com.app.reparacion.models.Tecnico;
 import com.app.reparacion.repositories.CategoriaRepository;
 import com.app.reparacion.repositories.ServicioReparacionRepository;
 import com.app.reparacion.repositories.TecnicoRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class TecnicoService {
@@ -37,6 +38,7 @@ public class TecnicoService {
     } 
 
     /** Actualizar categorías del técnico */
+    @Transactional
     public Tecnico actualizarCategorias(Integer idTecnico, List<Integer> idsCategorias) {
         Tecnico tecnico = tecnicoRepo.findById(idTecnico)
         .orElseThrow(() -> new RuntimeException("Técnico no encontrado"));

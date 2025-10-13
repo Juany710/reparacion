@@ -3,6 +3,9 @@ package com.app.reparacion.models;
 import java.time.LocalDateTime;
 import com.app.reparacion.models.enums.EstadoMensaje;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
 
 @Entity
 @Table(name = "chat")
@@ -12,21 +15,26 @@ public class Chat {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idChat;
 
+    @NotBlank(message = "El mensaje no puede estar vacío")
     @Column(columnDefinition = "TEXT")
     private String mensaje;
 
+    @PastOrPresent(message = "La fecha de envío no puede ser futura")
     private LocalDateTime fechaEnvio;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "estado_mensaje")
+    @NotNull(message = "El estado del mensaje es obligatorio")
     private EstadoMensaje estado = EstadoMensaje.PENDIENTE; // valor por defecto
 
     @ManyToOne
-    @JoinColumn(name = "emisor_id")
+    @JoinColumn(name = "emisor_id", nullable = false)
+    @NotNull(message = "Debe indicar el emisor del mensaje")
     private Usuario emisor;
 
     @ManyToOne
-    @JoinColumn(name = "receptor_id")
+    @JoinColumn(name = "receptor_id", nullable = false)
+    @NotNull(message = "Debe indicar el receptor del mensaje")
     private Usuario receptor;
 
     @ManyToOne

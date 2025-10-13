@@ -1,12 +1,11 @@
 package com.app.reparacion.services;
 
 import java.time.LocalDateTime;
-
 import org.springframework.stereotype.Service;
-
 import com.app.reparacion.models.TicketSoporte;
 import com.app.reparacion.models.enums.EstadoTicket;
 import com.app.reparacion.repositories.TicketSoporteRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class TicketSoporteService {
@@ -17,12 +16,14 @@ public class TicketSoporteService {
         this.ticketRepo = ticketRepo;
     }
 
+    @Transactional
     public TicketSoporte crearTicket(TicketSoporte ticket) {
         ticket.setFechaCreacion(LocalDateTime.now());
         ticket.setEstado(EstadoTicket.ABIERTO);
         return ticketRepo.save(ticket);
     }
 
+    @Transactional
     public TicketSoporte cerrarTicket(Integer id) {
         TicketSoporte ticket = ticketRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Ticket no encontrado"));

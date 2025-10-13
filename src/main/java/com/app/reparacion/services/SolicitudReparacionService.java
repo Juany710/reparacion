@@ -6,11 +6,13 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import com.app.reparacion.dto.SolicitudResumenDTO;
 import com.app.reparacion.models.Categoria;
 import com.app.reparacion.models.Cliente;
 import com.app.reparacion.models.SolicitudReparacion;
 import com.app.reparacion.models.enums.Estado;
 import com.app.reparacion.repositories.SolicitudReparacionRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class SolicitudReparacionService {
@@ -22,6 +24,7 @@ public class SolicitudReparacionService {
     }
 
     /** Crear una nueva solicitud */
+    @Transactional
     public SolicitudReparacion crearSolicitud(SolicitudReparacion solicitud, Cliente cliente, Categoria categoria) {
         solicitud.setCliente(cliente);
         solicitud.setCategoria(categoria);
@@ -53,4 +56,7 @@ public class SolicitudReparacionService {
         return solicitudRepo.findByClienteId(idCliente);
     }
 
+    public List<SolicitudResumenDTO> obtenerSolicitudesPorCliente(Integer idCliente) {
+        return solicitudRepo.listarPorCliente(idCliente);
+    }
 }

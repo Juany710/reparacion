@@ -1,7 +1,11 @@
 package com.app.reparacion.models;
 
 import java.time.LocalDate;
+import java.util.List;
+
 import com.app.reparacion.models.enums.EstadoServicio;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -23,16 +27,21 @@ public class ServicioReparacion {
     private Oferta oferta;
 
     @OneToOne(mappedBy = "servicio", cascade = CascadeType.ALL)
+    @JsonIgnoreProperties("servicio")
     private Chat chat;
 
-        // Getters y Setters
+    @OneToMany(mappedBy = "servicio")
+    @JsonIgnoreProperties("servicio")
+    private List<Calificacion> calificaciones;
+
+    // Getters y Setters
     public EstadoServicio getEstado() {
         return estado;
     }
     public void setEstado(EstadoServicio estado) {
         this.estado = estado;
     }
-    
+
     public Oferta getOferta() {
         return oferta;
     }
@@ -59,5 +68,12 @@ public class ServicioReparacion {
     }
     public void setFechaFin(LocalDate fechaFin) {
         this.fechaFin = fechaFin;
+    }
+
+            public List<Calificacion> getCalificaciones() {
+        return calificaciones;
+    }
+    public void setCalificaciones(List<Calificacion> calificaciones) {
+        this.calificaciones = calificaciones;
     }
 }

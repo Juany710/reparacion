@@ -3,6 +3,8 @@ package com.app.reparacion.services;
 import java.time.LocalDate;
 import java.util.List;
 import org.springframework.stereotype.Service;
+
+import com.app.reparacion.dto.OfertaResumenDTO;
 import com.app.reparacion.models.Oferta;
 import com.app.reparacion.models.ServicioReparacion;
 import com.app.reparacion.models.SolicitudReparacion;
@@ -75,4 +77,7 @@ public class OfertaService {
         return ofertaRepo.findBySolicitudId(solicitudId);
     }
 
+    public List<OfertaResumenDTO> obtenerOfertasPorTecnico(Integer idTecnico) {
+        return ofertaRepo.listarPorTecnico(idTecnico);
+    }
 }

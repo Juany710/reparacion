@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
-
 import com.app.reparacion.models.Oferta;
 import com.app.reparacion.models.ServicioReparacion;
 import com.app.reparacion.models.enums.EstadoServicio;
 import com.app.reparacion.repositories.ServicioReparacionRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class ServicioReparacionService {
@@ -30,6 +30,7 @@ public class ServicioReparacionService {
     }
 
     /** Finalizar un servicio */
+    @Transactional
     public ServicioReparacion finalizarServicio(Integer id) {
         ServicioReparacion servicio = servicioRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Servicio no encontrado"));
@@ -39,6 +40,7 @@ public class ServicioReparacionService {
     }
 
     /** Cancelar un servicio */
+    @Transactional
     public ServicioReparacion cancelarServicio(Integer id) {
         ServicioReparacion servicio = servicioRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Servicio no encontrado"));
