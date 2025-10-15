@@ -62,4 +62,6 @@ public class ChatService {
     public List<ChatMensajeDTO> obtenerMensajesPorServicio(Integer idServicio) {
         return chatRepo.listarPorServicio(idServicio);
     }
+
+    //Normalizar las respuestas de fecha (LocalDateTime.now()) con una capa de formateo para JSON (en controller)
 }

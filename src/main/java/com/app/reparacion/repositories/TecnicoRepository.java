@@ -6,4 +6,6 @@ import com.app.reparacion.models.Tecnico;
 
 @Repository
 public interface TecnicoRepository  extends JpaRepository<Tecnico, Integer>{
+    boolean existsByEmail(String email);
+    boolean existsByUsername(String username);
 }

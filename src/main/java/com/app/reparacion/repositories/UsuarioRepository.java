@@ -6,5 +6,4 @@ import com.app.reparacion.models.Usuario;
 
 @Repository
 public interface UsuarioRepository  extends JpaRepository <Usuario, Integer>{
-
 }

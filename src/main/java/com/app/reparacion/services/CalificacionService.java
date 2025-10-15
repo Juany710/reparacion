@@ -14,9 +14,9 @@ public class CalificacionService {
     private final CalificacionRepository calificacionRepo;
     private final UsuarioRepository usuarioRepo;
 
-    public CalificacionService(CalificacionRepository calificacionRepo) {
+    public CalificacionService(CalificacionRepository calificacionRepo, UsuarioRepository usuarioRepo) {
         this.calificacionRepo = calificacionRepo;
-        this.usuarioRepo = null;
+        this.usuarioRepo = usuarioRepo;
     }
 
    /** Registrar una nueva calificación y actualizar promedio del usuario destinatario */

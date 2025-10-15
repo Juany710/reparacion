@@ -37,6 +37,7 @@ public class ServicioReparacionService {
         servicio.setEstado(EstadoServicio.FINALIZADO);
         servicio.setFechaFin(LocalDate.now());
         return servicioRepo.save(servicio);
+        //Agregar verificacion de estado antes del cierre para evitar doble cierre
     }
 
     /** Cancelar un servicio */
@@ -47,6 +48,7 @@ public class ServicioReparacionService {
         servicio.setEstado(EstadoServicio.CANCELADO);
         servicio.setFechaFin(LocalDate.now());
         return servicioRepo.save(servicio);
+        //Agregar verificacion de estado antes del cierre para evitar doble cierre
     }
 
     public List<ServicioReparacion> listarServicios() {
@@ -56,6 +58,4 @@ public class ServicioReparacionService {
     public Optional<ServicioReparacion> obtenerPorId(Integer id) {
         return servicioRepo.findById(id);
     }
-
-
 }

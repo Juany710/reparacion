@@ -59,4 +59,5 @@ public class SolicitudReparacionService {
     public List<SolicitudResumenDTO> obtenerSolicitudesPorCliente(Integer idCliente) {
         return solicitudRepo.listarPorCliente(idCliente);
     }
+    //Agregar metodo cancelar solicitud
 }

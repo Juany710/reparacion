@@ -7,5 +7,6 @@ import com.app.reparacion.models.Cliente;
 
 @Repository
 public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
-
+    boolean existsByEmail(String email);
+    boolean existsByUsername(String username);
 }

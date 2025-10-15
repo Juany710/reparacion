@@ -30,4 +30,5 @@ public class TicketSoporteService {
         ticket.setEstado(EstadoTicket.CERRADO);
         return ticketRepo.save(ticket);
     }
+    //Agregar un método actualizarEstadoTicket(EstadoTicket nuevoEstado) para mayor flexibilidad.
 }
