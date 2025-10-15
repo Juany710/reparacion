@@ -1,11 +1,8 @@
 package com.app.reparacion.models;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
-
 import com.app.reparacion.models.enums.Rol;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
@@ -55,7 +52,7 @@ public abstract class Usuario {
     @Column(name = "promedio_calificacion")
     private Double promedioCalificacion;
 
-     // 🔐 Para login
+     //Para login
     @Column(unique = true, nullable = false)
     @Email(message = "Debe ingresar un email válido")
     @NotBlank(message = "El email no puede estar vacío")
