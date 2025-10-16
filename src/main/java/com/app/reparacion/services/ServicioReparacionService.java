@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
+
+import com.app.reparacion.dto.ServicioResumenDTO;
 import com.app.reparacion.models.Oferta;
 import com.app.reparacion.models.ServicioReparacion;
 import com.app.reparacion.models.enums.EstadoServicio;
@@ -21,7 +23,7 @@ public class ServicioReparacionService {
     }
 
     /** Crear servicio a partir de una oferta aceptada */
-    public ServicioReparacion crearDesdeOferta(Oferta oferta) {
+    public ServicioReparacion crearServicio(Oferta oferta) {
         ServicioReparacion servicio = new ServicioReparacion();
         servicio.setOferta(oferta);
         servicio.setFechaInicio(LocalDate.now());
@@ -49,6 +51,38 @@ public class ServicioReparacionService {
         servicio.setFechaFin(LocalDate.now());
         return servicioRepo.save(servicio);
         //Agregar verificacion de estado antes del cierre para evitar doble cierre
+    }
+
+    /** Historial (DTO optimizado) para un técnico */
+    public List<ServicioResumenDTO> listarHistorialPorTecnico(Integer idTecnico) {
+        return servicioRepo.listarHistorialServicios(idTecnico);
+    }
+
+    /** Cambiar estado del servicio con reglas básicas */
+    @Transactional
+    public ServicioReparacion actualizarEstado(Integer id, String nuevoEstado) {
+        ServicioReparacion servicio = servicioRepo.findById(id)
+            .orElseThrow(() -> new RuntimeException("Servicio no encontrado"));
+
+        EstadoServicio estadoParseado = parseEstadoServicio(nuevoEstado);
+
+        // si se finaliza o cancela, setear fecha fin
+        if (estadoParseado == EstadoServicio.FINALIZADO || estadoParseado == EstadoServicio.CANCELADO) {
+            servicio.setFechaFin(LocalDate.now());
+        }
+
+        servicio.setEstado(estadoParseado);
+        return servicioRepo.save(servicio);
+    }
+
+    /** Helper: parsea string a enum de forma segura */
+    private EstadoServicio parseEstadoServicio(String valor) {
+        try {
+            return EstadoServicio.valueOf(valor.trim().toUpperCase());
+        } catch (Exception e) {
+            throw new IllegalArgumentException(
+                "Estado inválido: " + valor + ". Valores permitidos: EN_CURSO, FINALIZADO, CANCELADO");
+        }
     }
 
     public List<ServicioReparacion> listarServicios() {

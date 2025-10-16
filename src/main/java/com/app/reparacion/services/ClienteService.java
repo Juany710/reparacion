@@ -49,6 +49,18 @@ public class ClienteService {
         return clienteRepo.save(cliente);
     }
 
+    @Transactional
+    public void eliminarCliente(Integer id) {
+        Cliente cliente = clienteRepo.findById(id)
+            .orElseThrow(() -> new RuntimeException("Cliente no encontrado"));
+
+    if (!cliente.getSolicitudes().isEmpty()) {
+        throw new IllegalStateException("No se puede eliminar un cliente con solicitudes activas");
+    }
+
+    clienteRepo.delete(cliente);
+}
+
     public List<Cliente> listarClientes() {
         return clienteRepo.findAll();
     }

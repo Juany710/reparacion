@@ -2,16 +2,14 @@ package com.app.reparacion.services;
 
 import java.time.LocalDate;
 import java.util.List;
-import org.springframework.stereotype.Service;
+import java.util.Optional;
 
+import org.springframework.stereotype.Service;
 import com.app.reparacion.dto.OfertaResumenDTO;
 import com.app.reparacion.models.Oferta;
 import com.app.reparacion.models.ServicioReparacion;
-import com.app.reparacion.models.SolicitudReparacion;
-import com.app.reparacion.models.Tecnico;
 import com.app.reparacion.models.enums.Estado;
 import com.app.reparacion.models.enums.EstadoServicio;
-import com.app.reparacion.models.enums.Modalidad;
 import com.app.reparacion.repositories.OfertaRepository;
 import com.app.reparacion.repositories.ServicioReparacionRepository;
 
@@ -29,38 +27,41 @@ public class OfertaService {
     }
 
       /** Crear una nueva oferta */
-    public Oferta crearOferta(Oferta oferta, SolicitudReparacion solicitud, Tecnico tecnico, Modalidad modalidad) {
-        oferta.setSolicitud(solicitud);
-        oferta.setTecnico(tecnico);
-        oferta.setFecha(LocalDate.now());
-        oferta.setEstado(Estado.PENDIENTE);
-        oferta.setModalidad(modalidad);
-        return ofertaRepo.save(oferta);
+    @Transactional
+    public Oferta crearOferta(Oferta oferta) {
+    if (oferta.getSolicitud() == null || oferta.getTecnico() == null || oferta.getModalidad() == null) {
+        throw new IllegalArgumentException("La oferta debe incluir solicitud, técnico y modalidad");
     }
+
+    oferta.setFecha(LocalDate.now());
+    oferta.setEstado(Estado.PENDIENTE);
+
+    return ofertaRepo.save(oferta);
+}
 
      /** Aceptar una oferta y generar el servicio correspondiente */
     @Transactional
     public ServicioReparacion aceptarOferta(Integer idOferta) {
-        // 1️⃣ Buscar la oferta seleccionada
+        //Buscar la oferta seleccionada
         Oferta oferta = ofertaRepo.findById(idOferta)
                 .orElseThrow(() -> new RuntimeException("Oferta no encontrada"));
 
-        // 2️⃣ Cambiar su estado a ACEPTADA
+        //Cambiar su estado a ACEPTADA
         oferta.setEstado(Estado.ACEPTADA);
         ofertaRepo.save(oferta);
 
-        // 3️⃣ Rechazar todas las demás ofertas de la misma solicitud
+        //Rechazar todas las demás ofertas de la misma solicitud
         ofertaRepo.rechazarOtras(
                 oferta.getSolicitud(). getIdSolicitudReparacion(),
                 oferta.getIdOferta()
         );
 
-        // 4️⃣ Crear el nuevo servicio de reparación
+        //Crear el nuevo servicio de reparación
         ServicioReparacion servicio = new ServicioReparacion();
         servicio.setOferta(oferta);
         servicio.setEstado(EstadoServicio.EN_CURSO);
 
-        // 5️⃣ Guardar y devolver el servicio creado
+        //Guardar y devolver el servicio creado
         return servicioRepo.save(servicio);
     }
 
@@ -80,4 +81,8 @@ public class OfertaService {
     public List<OfertaResumenDTO> obtenerOfertasPorTecnico(Integer idTecnico) {
         return ofertaRepo.listarPorTecnico(idTecnico);
     }
+
+    public Optional<Oferta> obtenerPorId(Integer id) {
+    return ofertaRepo.findById(id);
+}
 }

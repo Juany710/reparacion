@@ -1,6 +1,8 @@
 package com.app.reparacion.services;
 
 import java.time.LocalDateTime;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 import com.app.reparacion.models.TicketSoporte;
 import com.app.reparacion.models.enums.EstadoTicket;
@@ -30,5 +32,9 @@ public class TicketSoporteService {
         ticket.setEstado(EstadoTicket.CERRADO);
         return ticketRepo.save(ticket);
     }
+
+    public List<TicketSoporte> listarTodos() {
+    return ticketRepo.findAll();
+}
     //Agregar un método actualizarEstadoTicket(EstadoTicket nuevoEstado) para mayor flexibilidad.
 }
