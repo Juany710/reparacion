@@ -5,6 +5,7 @@ import com.app.reparacion.models.enums.Estado;
 import com.app.reparacion.services.SolicitudReparacionService;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,9 +19,10 @@ public class SolicitudReparacionController {
         this.solicitudService = solicitudService;
     }
 
-    /** 🔹 Crear una nueva solicitud (cliente envía su requerimiento) */
+    /* Crear una nueva solicitud (cliente envía su requerimiento) */
     @PostMapping
     @Transactional
+    @PreAuthorize("hasRole('CLIENTE')")
     public ResponseEntity<?> crearSolicitud(@RequestBody SolicitudReparacion solicitud) {
         try {
             SolicitudReparacion nueva = solicitudService.crearSolicitud(solicitud);
@@ -30,29 +32,33 @@ public class SolicitudReparacionController {
         }
     }
 
-    /** 🔹 Obtener una solicitud por ID */
+    /* Obtener una solicitud por ID */
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('CLIENTE','TECNICO','ADMIN')")
     public ResponseEntity<?> obtenerPorId(@PathVariable Integer id) {
         return solicitudService.obtenerPorId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    /** 🔹 Listar todas las solicitudes (solo admin o soporte) */
+    /* Listar todas las solicitudes (solo admin o soporte) */
     @GetMapping
+    @PreAuthorize("hasAnyRole('ADMIN','SOPORTE')")
     public ResponseEntity<List<SolicitudReparacion>> listarTodas() {
         return ResponseEntity.ok(solicitudService.listarSolicitudes());
     }
 
-    /** 🔹 Listar solicitudes de un cliente específico */
+    /* Listar solicitudes de un cliente específico */
     @GetMapping("/cliente/{idCliente}")
+    @PreAuthorize("hasAnyRole('CLIENTE','ADMIN')")
     public ResponseEntity<List<SolicitudReparacion>> listarPorCliente(@PathVariable Integer idCliente) {
         return ResponseEntity.ok(solicitudService.listarPorCliente(idCliente));
     }
 
-    /** 🔹 Cambiar el estado de una solicitud (aceptada, cancelada, en curso, etc.) */
+    /* Cambiar el estado de una solicitud (aceptada, cancelada, en curso, etc.) */
     @PutMapping("/{id}/estado")
     @Transactional
+    @PreAuthorize("hasAnyRole('TECNICO','ADMIN')")
     public ResponseEntity<?> cambiarEstado(
             @PathVariable Integer id,
             @RequestParam Estado estado) {
@@ -64,9 +70,10 @@ public class SolicitudReparacionController {
         }
     }
 
-    /** 🔹 Eliminar una solicitud (opcional, solo admin o cliente dueño) */
+    /* Eliminar una solicitud (opcional, solo admin o cliente dueño) */
     @DeleteMapping("/{id}")
     @Transactional
+    @PreAuthorize("hasAnyRole('CLIENTE','ADMIN')")
     public ResponseEntity<?> eliminarSolicitud(@PathVariable Integer id) {
         try {
             solicitudService.eliminarSolicitud(id);

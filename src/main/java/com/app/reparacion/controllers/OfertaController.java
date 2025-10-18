@@ -4,6 +4,7 @@ import com.app.reparacion.models.Oferta;
 import com.app.reparacion.models.ServicioReparacion;
 import com.app.reparacion.services.OfertaService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,9 +20,10 @@ public class OfertaController {
         this.ofertaService = ofertaService;
     }
 
-    /** 🔹 Crear una nueva oferta (técnico postula a una solicitud) */
+    /* Crear una nueva oferta (técnico postula a una solicitud) */
     @PostMapping
     @Transactional
+    @PreAuthorize("hasRole('TECNICO')")
     public ResponseEntity<?> crearOferta(@RequestBody Oferta oferta) {
         try {
             Oferta nueva = ofertaService.crearOferta(oferta);
@@ -31,20 +33,23 @@ public class OfertaController {
         }
     }
 
-    /** 🔹 Listar todas las ofertas de una solicitud */
+    /* Listar todas las ofertas de una solicitud */
     @GetMapping("/solicitud/{idSolicitud}")
+    @PreAuthorize("hasAnyRole('TECNICO','ADMIN','SOPORTE')")
     public ResponseEntity<List<Oferta>> listarPorSolicitud(@PathVariable Integer idSolicitud) {
         return ResponseEntity.ok(ofertaService.listarPorSolicitud(idSolicitud));
     }
 
-    /** 🔹 Listar ofertas enviadas por un técnico */
+    /* Listar ofertas enviadas por un técnico */
     @GetMapping("/tecnico/{idTecnico}")
+    @PreAuthorize("hasAnyRole('TECNICO','ADMIN','SOPORTE')")
     public ResponseEntity<?> listarPorTecnico(@PathVariable Integer idTecnico) {
         return ResponseEntity.ok(ofertaService.obtenerOfertasPorTecnico(idTecnico));
     }
 
-    /** 🔹 Aceptar una oferta (crea automáticamente el servicio de reparación) */
+    /* Aceptar una oferta (crea automáticamente el servicio de reparación) */
     @PutMapping("/{id}/aceptar")
+    @PreAuthorize("hasAnyRole('CLIENTE','ADMIN')")
     @Transactional
     public ResponseEntity<?> aceptarOferta(@PathVariable Integer id) {
         try {
@@ -55,8 +60,9 @@ public class OfertaController {
         }
     }
 
-    /** 🔹 Rechazar una oferta */
+    /* Rechazar una oferta */
     @PutMapping("/{id}/rechazar")
+    @PreAuthorize("hasAnyRole('CLIENTE','ADMIN')")
     @Transactional
     public ResponseEntity<?> rechazarOferta(@PathVariable Integer id) {
         try {
@@ -67,8 +73,9 @@ public class OfertaController {
         }
     }
 
-    /** 🔹 Obtener una oferta por ID */
+    /* Obtener una oferta por ID */
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('CLIENTE','TECNICO','ADMIN','SOPORTE')")
     public ResponseEntity<?> obtenerPorId(@PathVariable Integer id) {
         return ofertaService.obtenerPorId(id)
                 .map(ResponseEntity::ok)

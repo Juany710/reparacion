@@ -5,6 +5,7 @@ import com.app.reparacion.models.ServicioReparacion;
 import com.app.reparacion.services.ServicioReparacionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +22,7 @@ public class ServicioReparacionController {
     /** Crear un nuevo servicio al aceptar una oferta */
     @PostMapping
     @Transactional
+    @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<?> crearServicio(@RequestBody Oferta oferta) {
         try {
             ServicioReparacion nuevo = servicioService.crearServicio(oferta);
@@ -34,6 +36,7 @@ public class ServicioReparacionController {
 
     /** Obtener servicio por ID */
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('CLIENTE','TECNICO','ADMIN','SOPORTE')")
     public ResponseEntity<?> obtenerPorId(@PathVariable Integer id) {
         return servicioService.obtenerPorId(id)
                 .map(ResponseEntity::ok)
@@ -42,6 +45,7 @@ public class ServicioReparacionController {
 
     /** Listar todos los servicios de un técnico (historial) */
     @GetMapping("/tecnico/{idTecnico}")
+    @PreAuthorize("hasAnyRole('TECNICO','ADMIN')")
     public ResponseEntity<List<?>> listarPorTecnico(@PathVariable Integer idTecnico) {
         return ResponseEntity.ok(servicioService.listarHistorialPorTecnico(idTecnico));
     }
@@ -49,6 +53,7 @@ public class ServicioReparacionController {
     /** Actualizar el estado del servicio */
     @PutMapping("/{id}/estado")
     @Transactional
+    @PreAuthorize("hasAnyRole('TECNICO','ADMIN')")
     public ResponseEntity<?> actualizarEstado(@PathVariable Integer id, @RequestParam String nuevoEstado) {
         try {
             ServicioReparacion actualizado = servicioService.actualizarEstado(id, nuevoEstado);

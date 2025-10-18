@@ -4,6 +4,7 @@ import com.app.reparacion.models.Cliente;
 import com.app.reparacion.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/clientes")
 @CrossOrigin(origins = "*")
+@PreAuthorize("hasRole('CLIENTE','ADMIN')")
 public class ClienteController {
 
     @Autowired
@@ -33,6 +35,7 @@ public class ClienteController {
 
     /** Obtener un cliente completo con sus relaciones */
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('CLIENTE','ADMIN','SOPORTE')")
     public ResponseEntity<?> obtenerClienteCompleto(@PathVariable Integer id) {
         return clienteService.obtenerClienteCompleto(id)
                 .map(ResponseEntity::ok)
@@ -42,6 +45,7 @@ public class ClienteController {
     /** Actualizar datos básicos (teléfono, dirección) */
     @PutMapping("/{id}")
     @Transactional
+    @PreAuthorize("hasAnyRole('CLIENTE','ADMIN','SOPORTE')")
     public ResponseEntity<?> actualizarDatos(@PathVariable Integer id, @RequestBody Cliente nuevosDatos) {
         try {
             Cliente actualizado = clienteService.actualizarDatos(id, nuevosDatos);
@@ -53,6 +57,7 @@ public class ClienteController {
 
     /** Listar todos los clientes */
     @GetMapping
+    @PreAuthorize("hasAnyRole('CLIENTE','ADMIN','SOPORTE')")
     public ResponseEntity<List<Cliente>> listarClientes() {
         return ResponseEntity.ok(clienteService.listarClientes());
     }

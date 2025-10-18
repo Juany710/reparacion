@@ -4,6 +4,7 @@ import com.app.reparacion.models.TicketSoporte;
 import com.app.reparacion.services.TicketSoporteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,7 @@ public class TicketSoporteController {
     /** Crear nuevo ticket */
     @PostMapping
     @Transactional
+    @PreAuthorize("hasAnyRole('CLIENTE','TECNICO','ADMIN','SOPORTE')")
     public ResponseEntity<?> crearTicket(@RequestBody TicketSoporte ticket) {
         try {
             TicketSoporte nuevo = ticketService.crearTicket(ticket);
@@ -32,6 +34,7 @@ public class TicketSoporteController {
     /** Cerrar un ticket existente */
     @PutMapping("/{id}/cerrar")
     @Transactional
+    @PreAuthorize("hasRole('SOPORTE')")
     public ResponseEntity<?> cerrarTicket(@PathVariable Integer id) {
         try {
             TicketSoporte cerrado = ticketService.cerrarTicket(id);
@@ -43,6 +46,7 @@ public class TicketSoporteController {
 
     /** Listar todos los tickets */
     @GetMapping
+    @PreAuthorize("hasAnyRole('CLIENTE','TECNICO','ADMIN','SOPORTE')")
     public ResponseEntity<List<TicketSoporte>> listarTickets() {
         return ResponseEntity.ok(ticketService.listarTodos());
     }

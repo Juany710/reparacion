@@ -2,6 +2,7 @@ package com.app.reparacion.controllers;
 
 import java.util.List;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import com.app.reparacion.models.Categoria;
 import com.app.reparacion.models.ServicioReparacion;
@@ -11,6 +12,7 @@ import jakarta.transaction.Transactional;
 
 @RestController
 @RequestMapping("/api/tecnicos")
+@PreAuthorize("hasAnyRole('TECNICO','ADMIN')")
 public class TecnicoController {
 
     private final TecnicoService tecnicoService;
@@ -19,7 +21,7 @@ public class TecnicoController {
         this.tecnicoService = tecnicoService;
     }
 
-    /** 🔹 Registrar nuevo técnico */
+    /* Registrar nuevo técnico */
     @PostMapping("/registrar")
     @Transactional
     public ResponseEntity<?> registrarTecnico(@RequestBody Tecnico tecnico) {
@@ -31,22 +33,25 @@ public class TecnicoController {
         }
     }
 
-    /** 🔹 Obtener técnico completo con servicios, categorías y calificaciones */
+    /* Obtener técnico completo con servicios, categorías y calificaciones */
     @GetMapping("/{id}")
+    @PreAuthorize("hasAnyRole('TECNICO','ADMIN','SOPORTE')")
     public ResponseEntity<?> obtenerTecnicoCompleto(@PathVariable Integer id) {
         return tecnicoService.obtenerTecnicoCompleto(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    /** 🔹 Listar todos los técnicos */
+    /* Listar todos los técnicos */
     @GetMapping
+    @PreAuthorize("hasAnyRole('TECNICO','ADMIN','SOPORTE')")
     public ResponseEntity<List<Tecnico>> listarTecnicos() {
         return ResponseEntity.ok(tecnicoService.listarTecnicos());
     }
 
-    /** 🔹 Actualizar datos de contacto */
+    /*  Actualizar datos de contacto */
     @PutMapping("/{id}")
+    @PreAuthorize("hasAnyRole('TECNICO','ADMIN','SOPORTE')")
     public ResponseEntity<?> actualizarDatos(
             @PathVariable Integer id,
             @RequestBody Tecnico nuevosDatos) {
@@ -59,14 +64,16 @@ public class TecnicoController {
         }
     }
 
-    /** 🔹 Listar categorías del técnico */
+    /* Listar categorías del técnico */
     @GetMapping("/{id}/categorias")
+    @PreAuthorize("hasAnyRole('TECNICO','ADMIN','SOPORTE')")
     public ResponseEntity<List<Categoria>> listarCategorias(@PathVariable Integer id) {
         return ResponseEntity.ok(tecnicoService.listarCategorias(id));
     }
 
-    /** 🔹 Actualizar categorías del técnico */
+    /* Actualizar categorías del técnico */
     @PutMapping("/{id}/categorias")
+    @PreAuthorize("hasAnyRole('TECNICO','ADMIN','SOPORTE')")
     public ResponseEntity<?> actualizarCategorias(
             @PathVariable Integer id,
             @RequestBody List<Integer> idsCategorias) {
@@ -79,8 +86,9 @@ public class TecnicoController {
         }
     }
 
-    /** 🔹 Historial de servicios realizados */
+    /* Historial de servicios realizados */
     @GetMapping("/{id}/servicios")
+    @PreAuthorize("hasAnyRole('TECNICO','ADMIN','SOPORTE')")
     public ResponseEntity<List<ServicioReparacion>> historialServicios(@PathVariable Integer id) {
         return ResponseEntity.ok(tecnicoService.historialServicios(id));
     }
