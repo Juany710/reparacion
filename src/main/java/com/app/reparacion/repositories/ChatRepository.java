@@ -11,24 +11,24 @@ import com.app.reparacion.models.Chat;
 @Repository
 public interface ChatRepository extends JpaRepository<Chat, Integer> {
 
-    List<Chat> findByServicioId(Integer idServicio);
+    List<Chat> findByServicio_IdServicio(Integer idServicio);
 
-    List<Chat> findByTicketId(Integer idTicket);
+    List<Chat> findByTicket_IdTicket(Integer idTicket);
 
     @Query("""
-        SELECT new com.app.reparacion.dto.ChatMensajeDTO(
-            m.idchat,
-            e.nombre,
-            r.nombre,
-            m.mensaje,
-            m.estado,
-            m.fechaEnvio
-        )
-        FROM Chat m
-        JOIN m.emisor e
-        JOIN m.receptor r
-        WHERE m.servicio.idservicio = :idServicio
-        ORDER BY m.fechaEnvio ASC
+    SELECT new com.app.reparacion.dto.ChatMensajeDTO(
+        m.idChat,
+        e.nombre,
+        r.nombre,
+        m.mensaje,
+        m.estado,
+        m.fechaEnvio
+    )
+    FROM Chat m
+    JOIN m.emisor e
+    JOIN m.receptor r
+    WHERE m.servicio.idServicio = :idServicio
+    ORDER BY m.fechaEnvio ASC
     """)
     List<ChatMensajeDTO> listarPorServicio(@Param("idServicio") Integer idServicio);
 }

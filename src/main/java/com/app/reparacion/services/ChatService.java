@@ -52,11 +52,11 @@ public class ChatService {
     }
 
     public List<Chat> listarPorServicio(Integer idServicio) {
-        return chatRepo.findByServicioId(idServicio);
+        return chatRepo.findByServicio_IdServicio(idServicio);
     }
 
     public List<Chat> listarPorTicket(Integer idTicket) {
-        return chatRepo.findByTicketId(idTicket);
+        return chatRepo.findByTicket_IdTicket(idTicket);
     }
 
     public List<ChatMensajeDTO> obtenerMensajesPorServicio(Integer idServicio) {

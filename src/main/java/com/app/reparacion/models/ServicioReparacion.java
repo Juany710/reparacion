@@ -2,10 +2,8 @@ package com.app.reparacion.models;
 
 import java.time.LocalDate;
 import java.util.List;
-
 import com.app.reparacion.models.enums.EstadoServicio;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import jakarta.persistence.*;
 
 @Entity
@@ -29,6 +27,11 @@ public class ServicioReparacion {
     @OneToOne(mappedBy = "servicio", cascade = CascadeType.ALL)
     @JsonIgnoreProperties("servicio")
     private Chat chat;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_tecnico")
+    @JsonIgnoreProperties("servicios") // evita recursividad
+    private Tecnico tecnico;
 
     @OneToMany(mappedBy = "servicio")
     @JsonIgnoreProperties("servicio")

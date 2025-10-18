@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 import com.app.reparacion.models.enums.AuthProvider;
 import com.app.reparacion.models.enums.Rol;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
@@ -46,6 +48,8 @@ public abstract class Usuario {
 
     private String telefono;
 
+    @OneToMany(mappedBy = "destinatario", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"destinatario", "emisor"})
     private List<Calificacion> calificaciones;
 
     @DecimalMin(value = "0.0", message = "El promedio no puede ser negativo")

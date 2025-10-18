@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 public class ChatMensajeDTO {
 
-    private Integer idMensaje;
+    private Integer idChat;
     private String emisor;
     private String receptor;
     private String mensaje;
@@ -12,8 +12,8 @@ public class ChatMensajeDTO {
     private LocalDateTime fechaEnvio;
 
 
-    public ChatMensajeDTO(Integer idMensaje, String emisor, String receptor, String mensaje, String estado, LocalDateTime fechaEnvio) {
-        this.idMensaje = idMensaje;
+    public ChatMensajeDTO(Integer idChat, String emisor, String receptor, String mensaje, String estado, LocalDateTime fechaEnvio) {
+        this.idChat = idChat;
         this.emisor = emisor;
         this.receptor = receptor;
         this.mensaje = mensaje;
@@ -21,46 +21,28 @@ public class ChatMensajeDTO {
         this.fechaEnvio = fechaEnvio;
     }
 
-    //Getters & Setters
-    public Integer getIdMensaje() {
-        return idMensaje;
-    }
-    public void setIdMensaje(Integer idMensaje) {
-        this.idMensaje = idMensaje;
+    // Getters y setters
+    public Integer getIdChat() {
+        return idChat;
     }
 
     public String getEmisor() {
         return emisor;
     }
-    public void setEmisor(String emisor) {
-        this.emisor = emisor;
-    }
 
     public String getReceptor() {
         return receptor;
-    }
-    public void setReceptor(String receptor) {
-        this.receptor = receptor;
     }
 
     public String getMensaje() {
         return mensaje;
     }
-    public void setMensaje(String mensaje) {
-        this.mensaje = mensaje;
-    }
 
     public String getEstado() {
         return estado;
     }
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
 
     public LocalDateTime getFechaEnvio() {
         return fechaEnvio;
-    }
-    public void setFechaEnvio(LocalDateTime fechaEnvio) {
-        this.fechaEnvio = fechaEnvio;
     }
 }

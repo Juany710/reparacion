@@ -27,8 +27,8 @@ public class Calificacion {
     @JoinColumn(name = "autor_id", nullable = false)
     private Usuario autor;
 
-    @ManyToOne
-    @JoinColumn(name = "destinatario_id", nullable = false)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_destinatario")
     private Usuario destinatario;
 
     @ManyToOne
