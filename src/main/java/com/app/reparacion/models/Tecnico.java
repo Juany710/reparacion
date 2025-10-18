@@ -9,10 +9,6 @@ import jakarta.persistence.*;
 @Table(name = "tecnico")
 public class Tecnico extends Usuario{
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idTecnico;
-
     private String especialidad;
 
     //Relación con servicios
@@ -57,13 +53,6 @@ public class Tecnico extends Usuario{
     }
     public void setCalificaciones(List<Calificacion> calificaciones) {
         this.calificaciones = calificaciones;
-    }
-
-        public Integer getIdTecnico() {
-        return idTecnico;
-    }
-    public void setIdTecnico(Integer idTecnico) {
-        this.idTecnico = idTecnico;
     }
 
     public List<Categoria> getCategorias() { 
