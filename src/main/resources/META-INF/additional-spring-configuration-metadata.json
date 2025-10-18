@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "facebook",
+  "type": "java.lang.String",
+  "description": "A description for 'facebook'"
+}]}

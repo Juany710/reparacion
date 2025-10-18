@@ -2,6 +2,7 @@ package com.app.reparacion.models;
 
 import java.time.LocalDate;
 import java.util.List;
+import com.app.reparacion.models.enums.AuthProvider;
 import com.app.reparacion.models.enums.Rol;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.DecimalMax;
@@ -75,6 +76,12 @@ public abstract class Usuario {
     @PastOrPresent(message = "La fecha de registro no puede ser futura")
     private LocalDate fechaRegistro;
 
+    @Enumerated(EnumType.STRING)
+    private AuthProvider authProvider = AuthProvider.LOCAL;
+
+    private LocalDate ultimoAcceso;
+
+    private String providerId; // sub/id del proveedor
 //Agregar tablas de login a la base de datos
 
     // 🔹 Getters y Setters
@@ -167,6 +174,30 @@ public abstract class Usuario {
     }
     public void setFechaRegistro(LocalDate fechaRegistro) {
         this.fechaRegistro = fechaRegistro;
+    }
+
+    public AuthProvider getAuthProvider() {
+        return authProvider;
+    }
+
+    public void setAuthProvider(AuthProvider authProvider) {
+        this.authProvider = authProvider;
+    }
+
+        public String getProviderId() {
+        return providerId;
+    }
+
+    public void setProviderId(String providerId) {
+        this.providerId = providerId;
+    }
+
+    public LocalDate getUltimoAcceso() {
+        return ultimoAcceso;
+    }
+
+    public void setUltimoAcceso(LocalDate ultimoAcceso) {
+        this.ultimoAcceso = ultimoAcceso;
     }
 
 }
