@@ -16,8 +16,7 @@ public class SolicitudReparacion {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idSolicitud_reparacion")
-    private Integer idSolicitudReparacion;
+    private Integer idSolicitud;
 
     @PastOrPresent(message = "La fecha de solicitud no puede ser futura")
     @Column(name = "Fecha_solicitud")
@@ -48,10 +47,10 @@ public class SolicitudReparacion {
 
     // 🔹 Getters y Setters
     public Integer getIdSolicitudReparacion() { 
-        return idSolicitudReparacion; 
+        return idSolicitud; 
     }
     public void setIdSolicitudReparacion(Integer idSolicitudReparacion) { 
-        this.idSolicitudReparacion = idSolicitudReparacion; 
+        this.idSolicitud = idSolicitudReparacion; 
     }
 
     public LocalDate getFechaSolicitud() { 

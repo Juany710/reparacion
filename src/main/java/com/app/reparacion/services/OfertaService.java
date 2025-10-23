@@ -75,7 +75,7 @@ public class OfertaService {
 
      /** Listar todas las ofertas de una solicitud */
     public List<Oferta> listarPorSolicitud(Integer solicitudId) {
-        return ofertaRepo.findBySolicitudId(solicitudId);
+        return ofertaRepo.findBySolicitudIdSolicitud(solicitudId);
     }
 
     public List<OfertaResumenDTO> obtenerOfertasPorTecnico(Integer idTecnico) {

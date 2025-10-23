@@ -1,6 +1,7 @@
 package com.app.reparacion.models;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import com.app.reparacion.models.enums.AuthProvider;
 import com.app.reparacion.models.enums.Rol;
@@ -48,9 +49,15 @@ public abstract class Usuario {
 
     private String telefono;
 
+    //Calificaciones recibidas
     @OneToMany(mappedBy = "destinatario", fetch = FetchType.LAZY)
-    @JsonIgnoreProperties({"destinatario", "emisor"})
-    private List<Calificacion> calificaciones;
+    @JsonIgnoreProperties({"destinatario", "autor"})
+    private List<Calificacion> calificacionesRecibidas = new ArrayList<>();
+
+    //Calificaciones enviadas
+    @OneToMany(mappedBy = "autor", fetch = FetchType.LAZY)
+    @JsonIgnoreProperties({"autor", "destinatario"})
+    private List<Calificacion> calificacionesEmitidas = new ArrayList<>();
 
     @DecimalMin(value = "0.0", message = "El promedio no puede ser negativo")
     @DecimalMax(value = "5.0", message = "El promedio no puede superar 5.0")
@@ -131,11 +138,17 @@ public abstract class Usuario {
         this.telefono = telefono;
     }
 
-    public List<Calificacion> getCalificaciones() {
-        return calificaciones;
+    public List<Calificacion> getCalificacionesRecibidas() {
+        return calificacionesRecibidas;
     }
-    public void setCalificaciones(List<Calificacion> calificaciones) {
-        this.calificaciones = calificaciones;
+    public void setCalificacionesRecibidas(List<Calificacion> calificacionesRecibidas) {
+        this.calificacionesRecibidas = calificacionesRecibidas;
+    }
+    public List<Calificacion> getCalificacionesEmitidas() {
+        return calificacionesEmitidas;
+    }
+    public void setCalificacionesEmitidas(List<Calificacion> calificacionesEmitidas) {
+        this.calificacionesEmitidas = calificacionesEmitidas;
     }
 
     public Double getPromedioCalificacion() {

@@ -14,7 +14,7 @@ import jakarta.transaction.Transactional;
 @Repository
 public interface OfertaRepository extends JpaRepository <Oferta, Integer>{
 
-    List<Oferta> findBySolicitudId(Integer isSolicitud);
+    List<Oferta> findBySolicitudIdSolicitud(Integer idSolicitud);
 
     // Rechaza todas las otras ofertas de la misma solicitud
     @Modifying
@@ -26,18 +26,18 @@ public interface OfertaRepository extends JpaRepository <Oferta, Integer>{
                     @Param("idOfertaAceptada") Integer idOfertaAceptada);
 
     @Query("""
-        SELECT new com.app.reparacion.dto.OfertaResumenDTO(
-            o.idOferta,
-            c.nombre,
-            o.precio,
-            o.modalidad,
-            o.estado
-        )
-        FROM Oferta o
-        JOIN o.solicitud s
-        JOIN s.categoria c
-        WHERE o.tecnico.idTecnico = :idTecnico
-        ORDER BY o.idOferta DESC
-    """)
+    SELECT new com.app.reparacion.dto.OfertaResumenDTO(
+        o.idOferta,
+        c.categoria,
+        o.precio,
+        o.modalidad,
+        o.estado
+    )
+    FROM Oferta o
+    JOIN o.solicitud s
+    JOIN s.categoria c
+    WHERE o.tecnico.idTecnico = :idTecnico
+    ORDER BY o.idOferta DESC
+""")
     List<OfertaResumenDTO> listarPorTecnico(@Param("idTecnico") Integer idTecnico);
 }

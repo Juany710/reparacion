@@ -18,15 +18,13 @@ public interface ChatRepository extends JpaRepository<Chat, Integer> {
     @Query("""
     SELECT new com.app.reparacion.dto.ChatMensajeDTO(
         m.idChat,
-        e.nombre,
-        r.nombre,
-        m.mensaje,
+        m.emisor,
+        m.receptor,
+        m,
         m.estado,
         m.fechaEnvio
     )
     FROM Chat m
-    JOIN m.emisor e
-    JOIN m.receptor r
     WHERE m.servicio.idServicio = :idServicio
     ORDER BY m.fechaEnvio ASC
     """)

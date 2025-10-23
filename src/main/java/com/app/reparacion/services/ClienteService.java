@@ -3,10 +3,12 @@ package com.app.reparacion.services;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
+import org.springframework.stereotype.Service;
 import com.app.reparacion.models.Cliente;
 import com.app.reparacion.repositories.ClienteRepository;
 import jakarta.transaction.Transactional;
 
+@Service
 public class ClienteService {
 
     private final ClienteRepository clienteRepo;
@@ -30,14 +32,15 @@ public class ClienteService {
 
     /** Obtener cliente con solicitudes y servicios */
     public Optional<Cliente> obtenerClienteCompleto(Integer id) {
-        return clienteRepo.findById(id)
-            .map(c -> {
-                // opcional: cargar relaciones si están lazy
-                c.getSolicitudes().size();
-                c.getCalificaciones().size();
-                return c;
-            });
-    }
+    return clienteRepo.findById(id)
+        .map(c -> {
+            // Forzar la carga de relaciones si están en modo LAZY
+            c.getSolicitudes().size();
+            c.getCalificacionesRecibidas().size(); // 👈 carga las que recibió
+            c.getCalificacionesEmitidas().size();  // 👈 carga las que envió
+            return c;
+        });
+}
 
     /** Actualizar datos de contacto */
     @Transactional

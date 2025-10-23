@@ -13,8 +13,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SwaggerConfig {
 
-    @Bean
-    public OpenAPI customOpenAPI() {
+        @Bean
+        public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 // 🔒 Configuración global de JWT para probar con "Authorize"
                 .addSecurityItem(new SecurityRequirement().addList("BearerAuth"))
@@ -38,5 +38,5 @@ public class SwaggerConfig {
                                 """)
                         .license(new License().name("Juan Ignacio Cabañas Hilbert - Proyecto Ingeniería en Software 2025"))
                 );
-    }
+        }
 }

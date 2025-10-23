@@ -2,17 +2,19 @@ package com.app.reparacion.dto;
 
 import java.time.LocalDateTime;
 
-public class ChatMensajeDTO {
+import com.app.reparacion.models.Chat;
+import com.app.reparacion.models.Usuario;
+import com.app.reparacion.models.enums.EstadoMensaje;
 
+public class ChatMensajeDTO {
     private Integer idChat;
-    private String emisor;
-    private String receptor;
-    private String mensaje;
-    private String estado;
+    private Usuario emisor;
+    private Usuario receptor;
+    private Chat mensaje;
+    private EstadoMensaje estado;
     private LocalDateTime fechaEnvio;
 
-
-    public ChatMensajeDTO(Integer idChat, String emisor, String receptor, String mensaje, String estado, LocalDateTime fechaEnvio) {
+    public ChatMensajeDTO(Integer idChat, Usuario emisor, Usuario receptor, Chat mensaje, EstadoMensaje estado, LocalDateTime fechaEnvio) {
         this.idChat = idChat;
         this.emisor = emisor;
         this.receptor = receptor;
@@ -26,19 +28,19 @@ public class ChatMensajeDTO {
         return idChat;
     }
 
-    public String getEmisor() {
+    public Usuario getEmisor() {
         return emisor;
     }
 
-    public String getReceptor() {
+    public Usuario getReceptor() {
         return receptor;
     }
 
-    public String getMensaje() {
+    public Chat getMensaje() {
         return mensaje;
     }
 
-    public String getEstado() {
+    public EstadoMensaje getEstado() {
         return estado;
     }
 

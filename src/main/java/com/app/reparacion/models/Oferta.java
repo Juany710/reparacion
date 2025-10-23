@@ -38,18 +38,17 @@ public class Oferta {
 
     // Relaciones
     @ManyToOne
-    @JoinColumn(name = "tecnico_id")
+    @JoinColumn(name = "idtecnico")
     @NotNull(message = "Debe asociarse a un técnico")
     private Tecnico tecnico;
 
     @ManyToOne
-    @JoinColumn(name = "solicitud_idSolicitud", nullable = false)
+    @JoinColumn(name = "idsolicitud_reparacion", nullable = false)
     private SolicitudReparacion solicitud;
 
     @OneToOne(mappedBy = "oferta")
     @JsonIgnoreProperties("oferta")
     private ServicioReparacion servicio;
-
 
     // Getters y Setters
 

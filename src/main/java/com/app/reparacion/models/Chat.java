@@ -28,12 +28,12 @@ public class Chat {
     private EstadoMensaje estado = EstadoMensaje.PENDIENTE; // valor por defecto
 
     @ManyToOne
-    @JoinColumn(name = "emisor_id", nullable = false)
+    @JoinColumn(name = "Emisor", nullable = false)
     @NotNull(message = "Debe indicar el emisor del mensaje")
     private Usuario emisor;
 
     @ManyToOne
-    @JoinColumn(name = "receptor_id", nullable = false)
+    @JoinColumn(name = "Receptor", nullable = false)
     @NotNull(message = "Debe indicar el receptor del mensaje")
     private Usuario receptor;
 
