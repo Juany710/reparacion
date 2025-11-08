@@ -1,18 +1,19 @@
 package com.app.reparacion.dto;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import com.app.reparacion.models.enums.EstadoServicio;
 
 public class ServicioResumenDTO {
 
     private Integer idServicio;
     private String categoria;
     private String cliente;
-    private LocalDateTime fechaInicio;
-    private LocalDateTime fechaFin;
-    private String estado;
+    private LocalDate fechaInicio;
+    private LocalDate fechaFin;
+    private EstadoServicio estado;
 
 
-    public ServicioResumenDTO (Integer idServicio, String categoria, String cliente, LocalDateTime fechaInicio, LocalDateTime fechaFin, String estado) {
+    public ServicioResumenDTO (Integer idServicio, String categoria, String cliente, LocalDate fechaInicio, LocalDate fechaFin, EstadoServicio estado) {
         this.idServicio = idServicio;
         this.categoria = categoria;
         this.cliente = cliente;
@@ -44,24 +45,24 @@ public class ServicioResumenDTO {
         this.cliente = cliente;
     }
 
-    public LocalDateTime getFechaInicio() {
+    public LocalDate getFechaInicio() {
         return fechaInicio;
     }
-    public void setFechaInicio(LocalDateTime fechaInicio) {
+    public void setFechaInicio(LocalDate fechaInicio) {
         this.fechaInicio = fechaInicio;
     }
 
-    public LocalDateTime getFechaFin() {
+    public LocalDate getFechaFin() {
         return fechaFin;
     }
-    public void setFechaFin(LocalDateTime fechaFin) {
+    public void setFechaFin(LocalDate fechaFin) {
         this.fechaFin = fechaFin;
     }
 
-    public String getEstado() {
+    public EstadoServicio getEstado() {
         return estado;
     }
-    public void setEstado(String estado) {
+    public void setEstado(EstadoServicio estado) {
         this.estado = estado;
     }
 }

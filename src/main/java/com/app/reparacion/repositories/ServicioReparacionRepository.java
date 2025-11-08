@@ -13,16 +13,17 @@ import com.app.reparacion.models.ServicioReparacion;
 public interface ServicioReparacionRepository extends JpaRepository<ServicioReparacion, Integer> {
 
         // Buscar servicios por el ID del técnico asociado a la oferta
-    List<ServicioReparacion> findByOfertaTecnicoId(Integer idTecnico);
+        // El id del técnico se hereda de Usuario (idUsuario), por eso usamos 'IdUsuario' en el nombre
+        List<ServicioReparacion> findByOfertaTecnicoIdUsuario(Integer idTecnico);
 
     @Query("""
 SELECT new com.app.reparacion.dto.ServicioResumenDTO(
-    s.idservicio,
-    c.nombre,
-    CONCAT(cl.nombre, ' ', cl.apellido),
-    s.fechainicio,
-    s.fechafin,
-    s.estado
+        s.idServicio,
+        c.nombre,
+        CONCAT(cl.nombre, ' ', cl.apellido),
+        s.fechaInicio,
+        s.fechaFin,
+        s.estado
 )
 FROM ServicioReparacion s
 JOIN s.oferta o
@@ -30,7 +31,7 @@ JOIN o.tecnico t
 JOIN o.solicitud csol
 JOIN csol.categoria c
 JOIN csol.cliente cl
-WHERE t.idtecnico = :idTecnico
+WHERE t.idUsuario = :idTecnico
 """)
 List<ServicioResumenDTO> listarHistorialServicios(@Param("idTecnico") Integer idTecnico);
 

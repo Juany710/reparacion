@@ -11,18 +11,18 @@ import com.app.reparacion.models.SolicitudReparacion;
 
 @Repository
 public interface SolicitudReparacionRepository extends JpaRepository <SolicitudReparacion, Integer>{
-    List<SolicitudReparacion> findByClienteId(Integer idCliente);
-    
+    List<SolicitudReparacion> findByClienteIdUsuario(Integer idCliente);
+
     @Query("""
         SELECT new com.app.reparacion.dto.SolicitudResumenDTO(
-            s.idSolicitudReparacion,
+            s.idSolicitud,
             c.nombre,
             s.estado,
             s.fechaSolicitud
         )
         FROM SolicitudReparacion s
         JOIN s.categoria c
-        WHERE s.cliente.idCliente = :idCliente
+        WHERE s.cliente.idUsuario = :idCliente
         ORDER BY s.fechaSolicitud DESC
     """)
     List<SolicitudResumenDTO> listarPorCliente(@Param("idCliente") Integer idCliente);

@@ -72,7 +72,7 @@ public class TecnicoService {
 
     /** Historial de servicios realizados por el técnico */
     public List<ServicioReparacion> historialServicios(Integer idTecnico) {
-        return servicioRepo.findByOfertaTecnicoId(idTecnico);
+        return servicioRepo.findByOfertaTecnicoIdUsuario(idTecnico);
     }
 
     /** Categorías actuales del técnico */

@@ -51,7 +51,7 @@ public SolicitudReparacion crearSolicitud(SolicitudReparacion solicitud) {
 
     /** Listar solicitudes de un cliente específico */
     public List<SolicitudReparacion> listarPorCliente(Integer idCliente) {
-        return solicitudRepo.findByClienteId(idCliente);
+        return solicitudRepo.findByClienteIdUsuario(idCliente);
     }
 
     /** Eliminar una solicitud por ID */

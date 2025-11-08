@@ -1,6 +1,5 @@
 package com.app.reparacion.dto;
 
-import java.math.BigDecimal;
 import com.app.reparacion.models.enums.Estado;
 import com.app.reparacion.models.enums.Modalidad;
 
@@ -8,20 +7,19 @@ public class OfertaResumenDTO {
 
     private Integer idOferta;
     private String categoria;
-    private BigDecimal precio;
+    private Double precio;
     private Modalidad modalidad;
     private Estado estado;
 
+    public OfertaResumenDTO(Integer idOferta, String categoria, Double precio, Modalidad modalidad, Estado estado) {
+        this.idOferta = idOferta;
+        this.categoria = categoria;
+        this.precio = precio;
+        this.modalidad = modalidad;
+        this.estado = estado;
+    }
 
-    public OfertaResumenDTO(Integer idOferta, String categoria, BigDecimal precio, Modalidad modalidad, Estado estado) {
-    this.idOferta = idOferta;
-    this.categoria = categoria;
-    this.precio = precio;
-    this.modalidad = modalidad;
-    this.estado = estado;
-}
-
-    //Getters & Setters
+    // Getters & Setters
     public Integer getIdOferta() {
         return idOferta;
     }
@@ -36,10 +34,10 @@ public class OfertaResumenDTO {
         this.categoria = categoria;
     }
 
-    public BigDecimal getPrecio() {
+    public Double getPrecio() {
         return precio;
     }
-    public void setPrecio(BigDecimal precio) {
+    public void setPrecio(Double precio) {
         this.precio = precio;
     }
 

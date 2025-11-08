@@ -28,7 +28,7 @@ public interface OfertaRepository extends JpaRepository <Oferta, Integer>{
     @Query("""
     SELECT new com.app.reparacion.dto.OfertaResumenDTO(
         o.idOferta,
-        c.categoria,
+        c.nombre,
         o.precio,
         o.modalidad,
         o.estado
@@ -36,7 +36,7 @@ public interface OfertaRepository extends JpaRepository <Oferta, Integer>{
     FROM Oferta o
     JOIN o.solicitud s
     JOIN s.categoria c
-    WHERE o.tecnico.idTecnico = :idTecnico
+    WHERE o.tecnico.idUsuario = :idTecnico
     ORDER BY o.idOferta DESC
 """)
     List<OfertaResumenDTO> listarPorTecnico(@Param("idTecnico") Integer idTecnico);
