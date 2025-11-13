@@ -1,5 +1,62 @@
-{"properties": [{
-  "name": "facebook",
-  "type": "java.lang.String",
-  "description": "A description for 'facebook'"
-}]}
+{"properties": [
+  {
+    "name": "stripe.secret.key",
+    "type": "java.lang.String",
+    "description": "Stripe API secret key for payment processing (set via STRIPE_SECRET_KEY env var)"
+  },
+  {
+    "name": "stripe.public.key",
+    "type": "java.lang.String",
+    "description": "Stripe API public key for client-side token generation (set via STRIPE_PUBLIC_KEY env var)"
+  },
+  {
+    "name": "stripe.endpoint.secret",
+    "type": "java.lang.String",
+    "description": "Stripe webhook endpoint secret for validating webhook signatures (set via STRIPE_ENDPOINT_SECRET env var)"
+  },
+  {
+    "name": "firebase.admin.json",
+    "type": "java.lang.String",
+    "description": "Path to Firebase Admin SDK service account JSON file or env var with content (set via FIREBASE_ADMIN_JSON env var)"
+  },
+  {
+    "name": "firebase.database.url",
+    "type": "java.lang.String",
+    "description": "Firebase Realtime Database URL (set via FIREBASE_DB_URL env var)"
+  },
+  {
+    "name": "firebase.project.id",
+    "type": "java.lang.String",
+    "description": "Firebase project ID for Cloud Messaging and Firestore (set via FIREBASE_PROJECT_ID env var)"
+  },
+  {
+    "name": "google.maps.api.key",
+    "type": "java.lang.String",
+    "description": "Google Maps API key for backend location services (set via GOOGLE_MAPS_API_KEY env var)"
+  },
+  {
+    "name": "sendgrid.api.key",
+    "type": "java.lang.String",
+    "description": "SendGrid API key for email delivery (set via SENDGRID_API_KEY env var)"
+  },
+  {
+    "name": "sendgrid.from.email",
+    "type": "java.lang.String",
+    "description": "Sender email address for SendGrid emails"
+  },
+  {
+    "name": "twilio.account.sid",
+    "type": "java.lang.String",
+    "description": "Twilio Account SID for SMS sending (set via TWILIO_ACCOUNT_SID env var)"
+  },
+  {
+    "name": "twilio.auth.token",
+    "type": "java.lang.String",
+    "description": "Twilio authentication token (set via TWILIO_AUTH_TOKEN env var)"
+  },
+  {
+    "name": "twilio.phone.number",
+    "type": "java.lang.String",
+    "description": "Twilio phone number for sending SMS messages"
+  }
+]}
